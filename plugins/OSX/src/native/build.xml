@@ -41,9 +41,22 @@
 		<property name="ppc_sdkroot" location="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"/>
 		<property name="universal_sdkroot" location="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"/>
 		<property name="x86_64_sdkroot" location="/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"/>
-		<property name="ppc_flags" value="-isysroot ${universal_sdkroot} -mmacosx-version-min=10.3 -I /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include -I /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include/darwin"/>
+		<property name="ppc_flags" value="-isysroot ${universal_sdkroot} -arch x86_64 -mmacosx-version-min=10.3 -I /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include -I 
+/Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include/darwin"/>
 		<property name="universal_flags" value="-isysroot ${universal_sdkroot} -arch x86_64 -mmacosx-version-min=10.4 -I /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include -I /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include/darwin"/>
 		<property name="x86_64_flags" value="-isysroot ${x86_64_sdkroot} -arch arm64 -mmacosx-version-min=10.5 -I /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include -I /Library/Java/JavaVirtualMachines/zulu-8.jdk/Contents/Home/include/darwin"/>
+		<antcall target="compile">
+                        <param name="dstdir" location="ppc"/>
+                        <param name="compiler" value="gcc"/>
+                        <param name="sdkroot" location="${ppc_sdkroot}"/>
+                        <param name="cflags" value="${ppc_flags}"/>
+                </antcall>
+                <antcall target="link">
+                        <param name="objdir" location="ppc"/>
+                        <param name="libname" value="libjinput-osx-ppc.jnilib"/>
+                        <param name="linker" value="gcc"/>
+                        <param name="linkerflags" value="${ppc_flags}"/>
+                </antcall>
 		<antcall target="compile">
 			<param name="dstdir" location="x86_64"/>
 			<param name="compiler" value="gcc"/>

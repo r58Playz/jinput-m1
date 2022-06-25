@@ -90,7 +90,7 @@ public final class Version {
    * Version string of this build.
    */
   private static final String apiVersion = "2.0.5";
-  private static final String buildNumber = "12";
+  private static final String buildNumber = "18";
 
   /*
    * Split so that ant does not replace the token;
